@@ -1,0 +1,267 @@
+swagger: "2.0"
+info:
+  description: "This is Business Configuration Microservice."
+  version: "1.0.0"
+  title: "Alka Publishing House"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "bcssupport@sap.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost"
+basePath: "/v1"
+tags:
+- name: "Upload"
+  description: "Description about Upload Service."
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "PaytmMoney"
+  description: "Description about Earn Paytm Money"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+schemes:
+- "http"
+paths:
+  /upload:
+    post:
+      tags:
+      - "Upload"
+      summary: "Uplaod new Question"
+      description: ""
+      operationId: "uploadQuestion"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Question and Ans Multiple choice"
+        required: true
+        schema:
+          $ref: "#/definitions/QuestionDto"
+      responses:
+        201:
+          description: "Created"
+          schema:
+            $ref: "#/definitions/QuestionDto"
+        405:
+          description: "Invalid input"
+    put:
+      tags:
+      - "Upload"
+      summary: "Update Existing Ques"
+      description: ""
+      operationId: "updateQuestion"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Question and Ans Multiple choice"
+        required: true
+        schema:
+          $ref: "#/definitions/QuestionDto"
+      responses:
+        201:
+          description: "Created"
+          schema:
+            $ref: "#/definitions/QuestionDto"
+        405:
+          description: "Invalid input"
+    get:
+      tags:
+      - "Upload"
+      summary: "Get question with query"
+      description: ""
+      operationId: "getFiveQuestionList"
+      parameters:
+        - name: "stream"
+          in: "query"
+          description: "tags to filter by"
+          required: true
+          type: "string"
+        - name: "year"
+          in: "query"
+          description: "tags to filter by"
+          required: true
+          type: "string"
+        - name: "subject"
+          in: "query"
+          description: "tags to filter by"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Returned required List of Questions"
+          schema:
+            $ref: "#/definitions/QuestionList"
+        405:
+          description: "Invalid input"
+  /upload/{stream}/{year}/{subject}/{id}:
+    get:
+      tags:
+      - "Upload"
+      summary: "Get Specific question with Id"
+      description: ""
+      operationId: "getQuestion"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters:
+      - name: "stream"
+        in: "path"
+        description: "name of stream"
+        required: true
+        type: "string"
+      - name: "year"
+        in: "path"
+        description: "year number"
+        required: true
+        type: "string"
+      - name: "subject"
+        in: "path"
+        description: "name of subject"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "Id of subject"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Returned required Question"
+          schema:
+            $ref: "#/definitions/QuestionDto"
+        405:
+          description: "Invalid input"
+  /requestMoney:
+    post:
+      tags:
+      - "PaytmMoney"
+      summary: "Request for Paytm Money"
+      description: ""
+      operationId: "requestMoney"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Deatils of Phone number and money credit"
+        required: true
+        schema:
+          $ref: "#/definitions/MoneyRequestDto"
+      responses:
+        200:
+          description: "Money will be credited within 2 working days"
+        405:
+          description: "Invalid input"
+    delete:
+      tags:
+      - "PaytmMoney"
+      summary: "Deleting record after credit"
+      description: ""
+      operationId: "deletePhoneNumber"
+      consumes: 
+      - "application/json"
+      produces: 
+      - "application/json"
+      parameters:
+      - name: "phonenumber"
+        in: "path"
+        description: "Phone number for which row to be deleted"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Deleted"
+        400:
+          description: "Invalid Input"
+definitions:
+  QuestionDto:
+    type: object
+    required:
+      - id
+      - stream
+      - year
+      - subject
+      - ques
+      - opt1
+      - opt2
+      - opt3
+      - opt4
+      - correctAns
+      - explanation
+    properties:
+      id:
+        type: string
+      stream:
+        type: string
+      year:
+        type: string
+      subject:
+        type: string
+      ques:
+        type: string
+      opt1:
+        type: string
+      opt2:
+        type: string
+      opt3:
+        type: string
+      opt4:
+        type: string
+      correctAns:
+        type: string
+      explanation:
+        type: string
+  QuestionList:
+    type: object
+    required:
+      - stream
+      - year
+      - subject
+      - quesList
+    properties:
+      stream:
+        type: string
+      year:
+        type: string
+      subject:
+        type: string
+      quesList:
+        type: array
+        items: 
+         $ref: '#/definitions/QuestionDto'
+  MoneyRequestDto:
+    type: object
+    required:
+      - phonenumber
+      - rupee
+    properties:
+      phonenumber:
+        type: string
+      rupee:
+        type: string
+#  ApiResponse:
+#    type: "object"
+#    properties:
+#      code:
+#        type: "integer"
+#        format: "int32"
+#      type:
+#        type: "string"
+#      message:
+#        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
