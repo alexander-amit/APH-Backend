@@ -31,7 +31,7 @@ public interface UploadApi {
     default ResponseEntity<QuestionList> getFiveQuestionList( @NotNull @ApiParam(value = "tags to filter by", required = true) @RequestParam(value = "stream", required = true) String stream,
          @NotNull @ApiParam(value = "tags to filter by", required = true) @RequestParam(value = "year", required = true) String year,
          @NotNull @ApiParam(value = "tags to filter by", required = true) @RequestParam(value = "subject", required = true) String subject) {
-        // do some magic!
+        System.out.println("sdfdsfdsfdsfdsfdsf----------------------->");
         return new ResponseEntity<QuestionList>(HttpStatus.OK);
     }
 
@@ -48,7 +48,7 @@ public interface UploadApi {
         @ApiParam(value = "year number",required=true ) @PathVariable("year") String year,
         @ApiParam(value = "name of subject",required=true ) @PathVariable("subject") String subject,
         @ApiParam(value = "Id of subject",required=true ) @PathVariable("id") String id) {
-        // do some magic!
+    	System.out.println("sdfdsfdsfdsfdsfdsf----------------------->");
         return new ResponseEntity<QuestionDto>(HttpStatus.OK);
     }
 
