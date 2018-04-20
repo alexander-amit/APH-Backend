@@ -33,7 +33,7 @@ public class UploadService {
 
 	public QuestionDto getQuestion(String stream, String year, String subject, String id) {
 		initializeRepo(stream.toUpperCase(),year.toUpperCase(),subject.toUpperCase());
-		return (QuestionDto) baseRepo.findOne(Integer.valueOf(id.hashCode()));
+		return (QuestionDto) baseRepo.findOne(Integer.valueOf(id));
 	}
 
 	public QuestionDto update(QuestionDto body) {
@@ -42,14 +42,14 @@ public class UploadService {
 	}
 
 	public QuestionDto upload(QuestionDto body) {
-		className = initializeRepo(body.getStream().toUpperCase(),body.getYear().toUpperCase(),body.getSubject().toUpperCase());
-		new BCOMFFINANCIAL(body.getQues().hashCode(),body.getQues(),body.getOpt1(),body.getOpt2(),body.getOpt3(),body.getOpt4(),body.getCorrectAns(),body.getExplanation());  
 		
+		className = "alka.publishing.house.model."+initializeRepo(body.getStream().toUpperCase(),body.getYear().toUpperCase(),body.getSubject().toUpperCase());		
 		Object obj = null;
 		try {
-			obj = Class.forName(className).getConstructor(String.class).newInstance(body.getQues().hashCode(),body.getQues(),body.getOpt1(),body.getOpt2(),body.getOpt3(),body.getOpt4(),body.getCorrectAns(),body.getExplanation());
+			obj = Class.forName(className).getConstructor(Integer.class,String.class,String.class,String.class,String.class,String.class,String.class,String.class).newInstance(body.getQues().hashCode(),body.getQues(),body.getOpt1(),body.getOpt2(),body.getOpt3(),body.getOpt4(),body.getCorrectAns(),body.getExplanation());
 			baseRepo.save(obj);
-			return (QuestionDto)obj;
+			QuestionDto qDto = getQDto(body);
+			return qDto;
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -57,6 +57,19 @@ public class UploadService {
 		}
 		return null;
 		
+	}
+
+	private QuestionDto getQDto(QuestionDto body) {
+		QuestionDto qDto = new QuestionDto();
+		qDto.setCorrectAns(body.getCorrectAns());
+		qDto.setExplanation(body.getExplanation());
+		qDto.setOpt1(body.getOpt1());
+		qDto.setOpt2(body.getOpt2());
+		qDto.setOpt3(body.getOpt3());
+		qDto.setOpt4(body.getOpt4());
+		qDto.setQues(body.getQues());
+		qDto.setId(String.valueOf(body.getQues().hashCode()));
+		return qDto;
 	}
 
 	private String initializeRepo(String stream, String year, String subject) {
