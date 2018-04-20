@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-04-19T11:24:25.131+05:30")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-04-20T11:52:57.861+05:30")
 
 @Api(value = "upload", description = "the upload API")
 public interface UploadApi {
@@ -31,7 +31,7 @@ public interface UploadApi {
     default ResponseEntity<QuestionList> getFiveQuestionList( @NotNull @ApiParam(value = "tags to filter by", required = true) @RequestParam(value = "stream", required = true) String stream,
          @NotNull @ApiParam(value = "tags to filter by", required = true) @RequestParam(value = "year", required = true) String year,
          @NotNull @ApiParam(value = "tags to filter by", required = true) @RequestParam(value = "subject", required = true) String subject) {
-        System.out.println("sdfdsfdsfdsfdsfdsf----------------------->");
+        // do some magic!
         return new ResponseEntity<QuestionList>(HttpStatus.OK);
     }
 
@@ -41,14 +41,12 @@ public interface UploadApi {
         @ApiResponse(code = 200, message = "Returned required Question", response = QuestionDto.class),
         @ApiResponse(code = 405, message = "Invalid input", response = QuestionDto.class) })
     @RequestMapping(value = "/upload/{stream}/{year}/{subject}/{id}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
         method = RequestMethod.GET)
     default ResponseEntity<QuestionDto> getQuestion(@ApiParam(value = "name of stream",required=true ) @PathVariable("stream") String stream,
         @ApiParam(value = "year number",required=true ) @PathVariable("year") String year,
         @ApiParam(value = "name of subject",required=true ) @PathVariable("subject") String subject,
         @ApiParam(value = "Id of subject",required=true ) @PathVariable("id") String id) {
-    	System.out.println("sdfdsfdsfdsfdsfdsf----------------------->");
+        // do some magic!
         return new ResponseEntity<QuestionDto>(HttpStatus.OK);
     }
 

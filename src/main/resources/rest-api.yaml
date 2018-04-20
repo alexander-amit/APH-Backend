@@ -110,10 +110,6 @@ paths:
       summary: "Get Specific question with Id"
       description: ""
       operationId: "getQuestion"
-      consumes: 
-      - "application/json"
-      produces: 
-      - "application/json"
       parameters:
       - name: "stream"
         in: "path"

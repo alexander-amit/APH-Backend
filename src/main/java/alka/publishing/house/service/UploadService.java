@@ -14,7 +14,7 @@ import alka.publishing.house.repo.BaseRepo;
 @Service
 public class UploadService {
 
-	BaseRepo baserepo;
+	BaseRepo baseRepo;
 	@Autowired
 	BCOMFFINANCIALrepo BCOMFFINANCIALrepo;
 	@Autowired
@@ -28,8 +28,8 @@ public class UploadService {
 	}
 
 	public QuestionDto getQuestion(String stream, String year, String subject, String id) {
-		// TODO Auto-generated method stub
-		return null;
+		initializeRepo(stream.toUpperCase(),year.toUpperCase(),subject.toUpperCase());
+		return (QuestionDto) baseRepo.findOne(Integer.valueOf(id.hashCode()));
 	}
 
 	public QuestionDto update(QuestionDto body) {
@@ -38,26 +38,23 @@ public class UploadService {
 	}
 
 	public QuestionDto upload(QuestionDto body) {
-		initializeRepo(body);
-		baserepo.save(new BCOMFFINANCIAL(body.getQues(),body.getOpt1(),body.getOpt2(),body.getOpt3(),body.getOpt4(),body.getCorrectAns(),body.getExplanation()));
+		initializeRepo(body.getStream().toUpperCase(),body.getYear().toUpperCase(),body.getSubject().toUpperCase());
+		baseRepo.save(new BCOMFFINANCIAL(body.getQues().hashCode(),body.getQues(),body.getOpt1(),body.getOpt2(),body.getOpt3(),body.getOpt4(),body.getCorrectAns(),body.getExplanation()));
 		return null;
 	}
 
-	private void initializeRepo(QuestionDto body) {
-		String stream = body.getStream().toUpperCase();
-		String year = body.getYear().toUpperCase();
-		String subject = body.getSubject().toUpperCase();
+	private void initializeRepo(String stream, String year, String subject) {
 		String repo = stream+year+subject+"repo";
 
 		switch (repo) {
 		case "BCOMFFINANCIALrepo":
-			baserepo = BCOMFFINANCIALrepo;
+			baseRepo = BCOMFFINANCIALrepo;
 			break;
 		case "BCOMSFINANCIALrepo":
-			baserepo = BCOMSFINANCIALrepo;
+			baseRepo = BCOMSFINANCIALrepo;
 			break;
 		case "BCOMTFINANCIALrepo":
-			baserepo = BCOMTFINANCIALrepo;
+			baseRepo = BCOMTFINANCIALrepo;
 			break;
 		default:
 			

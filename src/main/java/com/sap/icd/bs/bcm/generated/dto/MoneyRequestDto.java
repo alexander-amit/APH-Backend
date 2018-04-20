@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 /**
  * MoneyRequestDto
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-04-19T11:24:25.131+05:30")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-04-20T11:52:57.861+05:30")
 
 public class MoneyRequestDto   {
   @JsonProperty("phonenumber")
