@@ -7,13 +7,13 @@ import javax.persistence.Id;
 public class BCOMTFINANCIAL extends BaseQues{
 
 	@Id
-	int id;
+	String id;
 	
 	public BCOMTFINANCIAL() {
 		super();
 	}
 
-	public BCOMTFINANCIAL(int id, String ques, String opt1, String opt2, String opt3, String opt4, String correctAns,
+	public BCOMTFINANCIAL(String id, String ques, String opt1, String opt2, String opt3, String opt4, String correctAns,
 			String explanation) {
 		super();
 		this.id = id;
@@ -27,11 +27,11 @@ public class BCOMTFINANCIAL extends BaseQues{
 		 
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 }

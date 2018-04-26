@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sap.icd.bs.bcm.generated.api.UploadApi;
+import com.sap.icd.bs.bcm.generated.dto.InlineResponse200;
 import com.sap.icd.bs.bcm.generated.dto.QuestionDto;
 import com.sap.icd.bs.bcm.generated.dto.QuestionList;
 
@@ -39,7 +40,7 @@ public class UploadController implements UploadApi {
 			@ApiParam(value = "name of subject", required = true) @PathVariable("subject") String subject,
 			@ApiParam(value = "Id of subject", required = true) @PathVariable("id") String id) {
 		// do some magic!
-		return new ResponseEntity<QuestionDto>(service.getQuestion(stream,year,subject,id),HttpStatus.OK);
+		return new ResponseEntity<QuestionDto>(service.getQuestion(stream, year, subject, id),HttpStatus.OK);
 	}
 
 	@Override
